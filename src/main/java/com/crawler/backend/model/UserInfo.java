@@ -1,13 +1,21 @@
 package com.crawler.backend.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
+@AllArgsConstructor
 public class UserInfo {
+    /**
+     * 主键
+     */
+    private Long uid;
     /**
      * 微信用户头像
      */
-    private String avatarUrl;
+    private String avatar;
     /**
      * 用户所在城市
      */
@@ -15,11 +23,11 @@ public class UserInfo {
     /**
      * 性别，1是男，0是女
      */
-    private int gender;
+    private Integer gender;
     /**
      * 用户名
      */
-    private String nickName;
+    private String name;
     /**
      * 用户所在省份
      */
