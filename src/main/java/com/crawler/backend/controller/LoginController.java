@@ -4,6 +4,8 @@ import cn.hutool.extra.emoji.EmojiUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.crawler.backend.model.WeChatUserInfo;
+import com.crawler.backend.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -18,10 +20,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
+@AllArgsConstructor
 public class LoginController {
+    private UserService userService;
     /**
      * 获取微信小程序 用户信息或用户手机号码
-     * @param code 调用微信登陆返回的Code
+     * @param info 调用微信登陆返回的Code
      * @return
      */
     @RequestMapping("/getSessionKeyOropenid")
@@ -65,9 +69,16 @@ public class LoginController {
         //具体可以获取什么用户信息可以到微信小程序文档查看
         //注意：获取用户信息和获取用户手机号 这两个是单独获取的，不能同时获取
         System.out.println("openId:" + jsonObject.getString("openid"));
-//        System.out.println(EmojiUtil.toHtmlHex(userInfoJSON.getString("nickName")));
+        String openId = jsonObject.getString("openid");
+        if(userService.getUserById(openId)==null){
+            if(userService.saveUser(userInfoJSON)){
+                log.info("saveUser ok!");
+                return userService.getUserByIdToJson(openId);
+            }
+        }
+        return userService.getUserByIdToJson(openId);
 
-        return userInfoJSON;
+//        System.out.println(EmojiUtil.toHtmlHex(userInfoJSON.getString("nickName")));
     }
 
 

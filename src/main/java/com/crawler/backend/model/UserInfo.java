@@ -9,9 +9,9 @@ import lombok.ToString;
 @AllArgsConstructor
 public class UserInfo {
     /**
-     * 主键
+     * 主键openid
      */
-    private Long uid;
+    private String uid;
     /**
      * 微信用户头像
      */
