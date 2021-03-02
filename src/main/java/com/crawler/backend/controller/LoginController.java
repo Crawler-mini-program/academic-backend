@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.crawler.backend.model.WeChatUserInfo;
 import com.crawler.backend.service.UserService;
+import com.crawler.backend.utils.token.JWTUtil;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
@@ -18,6 +20,8 @@ import com.crawler.backend.utils.AES;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+
 @Slf4j
 @RestController
 @AllArgsConstructor
@@ -28,9 +32,13 @@ public class LoginController {
      * @param info 调用微信登陆返回的Code
      * @return
      */
+    @Resource
+    private JWTUtil jwtUtil ;
     @RequestMapping("/getSessionKeyOropenid")
     @ResponseBody
     @Transactional(rollbackFor = Exception.class)
+    @ApiOperation("微信登录")
+
     public synchronized JSONObject getSessionKeyOropenid(@RequestBody WeChatUserInfo info) throws Exception {
         String code=info.getCode();
         String iv=info.getIv();
@@ -58,7 +66,7 @@ public class LoginController {
                     Base64.decodeBase64(iv));
 
             userInfo = new String(resultByte, "UTF-8");
-            System.out.println("userInfo:" + userInfo);
+//            System.out.println("userInfo:" + userInfo);
             userInfoJSON = JSON.parseObject(userInfo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,15 +76,19 @@ public class LoginController {
 
         //具体可以获取什么用户信息可以到微信小程序文档查看
         //注意：获取用户信息和获取用户手机号 这两个是单独获取的，不能同时获取
-        System.out.println("openId:" + jsonObject.getString("openid"));
+//        System.out.println("openId:" + jsonObject.getString("openid"));
         String openId = jsonObject.getString("openid");
+        String token = jwtUtil.getToken(openId);
         if(userService.getUserById(openId)==null){
-            if(userService.saveUser(userInfoJSON)){
+            if(userService.saveOrUpdateUser(userInfoJSON)){
                 log.info("saveUser ok!");
-                return userService.getUserByIdToJson(openId);
+                return userService.getUserByIdToJson(openId,token);
             }
         }
-        return userService.getUserByIdToJson(openId);
+
+
+        userService.saveOrUpdateUser(userInfoJSON);
+        return userService.getUserByIdToJson(openId,token);
 
 //        System.out.println(EmojiUtil.toHtmlHex(userInfoJSON.getString("nickName")));
     }

@@ -31,34 +31,35 @@ public class UserService extends ServiceImpl<UserInfoMapper, UserInfo> {
      */
     public UserInfo getUserById(String openid) {
         QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
-        wrapper.eq("uid", openid);
+        wrapper.eq("id", openid);
         return getOne(wrapper);
     }
 
-    public boolean saveUser(JSONObject userInfoJSON) {
-        String uid=userInfoJSON.getString("openId");
+    public boolean saveOrUpdateUser(JSONObject userInfoJSON) {
+        String id=userInfoJSON.getString("openId");
         String city=userInfoJSON.getString("city");
         String country=userInfoJSON.getString("country");
         String province=userInfoJSON.getString("province");
         String name=userInfoJSON.getString("nickName");
         int gender=Integer.parseInt(userInfoJSON.getString("gender"));
         String avatar=userInfoJSON.getString("avatarUrl");
-        boolean status = save(new UserInfo(uid,avatar,city,gender,name,province,country));
+        boolean status = saveOrUpdate(new UserInfo(id,avatar,city,gender,name,province,country));
         return status;
     }
 
-    public JSONObject getUserByIdToJson(String openId) {
+    public JSONObject getUserByIdToJson(String openId,String token) {
         QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
-        wrapper.eq("uid", openId);
+        wrapper.eq("id", openId);
         UserInfo user = getOne(wrapper);
         JSONObject res = new JSONObject();
-        res.put("uid",user.getUid());
+        res.put("id",user.getId());
         res.put("city",user.getCity());
         res.put("country",user.getCountry());
         res.put("province",user.getProvince());
         res.put("gender",user.getGender());
         res.put("avatar",user.getAvatar());
         res.put("name",user.getName());
+        res.put("token",token);
         return res;
     }
 }

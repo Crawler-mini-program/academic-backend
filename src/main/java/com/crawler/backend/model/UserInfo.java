@@ -11,7 +11,7 @@ public class UserInfo {
     /**
      * 主键openid
      */
-    private String uid;
+    private String id;
     /**
      * 微信用户头像
      */

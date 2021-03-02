@@ -6,3 +6,8 @@ spring:
     password: 123456
 server:
   port: 8086
+config:
+  jwt:
+    secret: Crawler
+    expire: 3600
+    header: token
