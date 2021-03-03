@@ -24,7 +24,7 @@ public class SearchScholarByFieldController {
     @GetMapping("/search-scholar-by-field")
     @ApiOperation("根据领域得到教师列表")
     @ApiResponses(value =
-    @ApiResponse(code = 200,message = "访问成功")
+        @ApiResponse(code = 200,message = "访问成功")
     )
     public JSONObject SearchScholarByField(String page_size, String page_no, String fieldId) throws IOException{
         CloseableHttpClient httpclient = HttpClients.createDefault();

@@ -24,7 +24,7 @@ public class SearchSonFieldController {
     @GetMapping("/search-son-field")
     @ApiOperation("根据父领域得到对应的子领域")
     @ApiResponses(value =
-    @ApiResponse(code = 200,message = "访问成功")
+        @ApiResponse(code = 200,message = "访问成功")
     )
     public JSONObject SearchParentField(String page_size, String page_no, String parentId) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();

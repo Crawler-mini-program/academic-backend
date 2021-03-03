@@ -23,7 +23,7 @@ public class SearchScholarByOrgController {
     @GetMapping("/search-scholar-by-org")
     @ApiOperation("根据机构得到教师列表")
     @ApiResponses(value =
-    @ApiResponse(code = 200,message = "访问成功")
+        @ApiResponse(code = 200,message = "访问成功")
     )
     public JSONObject SearchScholarByField(String page_size, String page_no, String orgId) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();

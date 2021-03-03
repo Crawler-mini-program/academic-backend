@@ -24,7 +24,7 @@ public class SearchParentFieldController {
     @GetMapping("/search-parent-field")
     @ApiOperation("关键词搜索专业的相关信息")
     @ApiResponses(value =
-    @ApiResponse(code = 200,message = "访问成功")
+        @ApiResponse(code = 200,message = "访问成功")
     )
     public JSONObject SearchParentField(String page_size, String page_no, String content) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
