@@ -2,7 +2,6 @@ package com.crawler.backend.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -20,20 +19,19 @@ import java.io.IOException;
 
 @RestController
 @AllArgsConstructor
-@Api(tags = "项目初始化测试")
-public class HelloController {
-    @GetMapping("/index")
-    @ApiOperation("返回hello world")
+public class GetSuggestUniController {
+    @GetMapping("/get-suggest-uni")
+    @ApiOperation("选中子领域后得到推荐的大学")
     @ApiResponses(value =
-        @ApiResponse(code = 200,message = "访问成功")
+    @ApiResponse(code = 200,message = "访问成功")
     )
-    public String index() throws IOException {
+    public JSONObject GetSuggestUni(String page_size, String page_no, String fieldId) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpget = new HttpGet("http://47.92.240.36/academic/api/v1/fields/super-course?pageSize=10&pageNo=0&content=计算机");
+        HttpGet httpget = new HttpGet("http://47.92.240.36/academic/api/v1/rank/top-organizations-by-orgInnovation?num=" + page_size + "&page=" + page_no + "&field=" + fieldId + "&orgType=university&sortType=innovationIndex");
         CloseableHttpResponse response = httpclient.execute(httpget);
 
         HttpEntity entity = response.getEntity();
         JSONObject jsonObject = JSON.parseObject(EntityUtils.toString(entity));
-        return jsonObject.toJSONString();
+        return jsonObject;
     }
 }

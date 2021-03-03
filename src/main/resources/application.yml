@@ -4,6 +4,9 @@ spring:
     url: jdbc:mysql://120.26.186.203:3306/crawler?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
     username: root
     password: 123456
+  devtools:
+    restart:
+      enabled: true
 server:
   port: 8086
 config:
