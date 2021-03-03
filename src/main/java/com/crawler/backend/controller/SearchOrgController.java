@@ -23,7 +23,7 @@ public class SearchOrgController {
     @GetMapping("/search-org")
     @ApiOperation("关键词模糊搜索机构")
     @ApiResponses(value =
-    @ApiResponse(code = 200,message = "访问成功")
+        @ApiResponse(code = 200,message = "访问成功")
     )
     public JSONObject SearchOrg(String page_size, String page_no, String content) throws IOException{
         CloseableHttpClient httpclient = HttpClients.createDefault();
