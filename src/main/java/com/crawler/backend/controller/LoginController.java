@@ -43,9 +43,9 @@ public class LoginController {
         String code=info.getCode();
         String iv=info.getIv();
         String encryptedData=info.getEncrypteData();
-        System.out.println("code:" + code);
-        System.out.println("iv:" + iv);
-        System.out.println("encryptedData:" + encryptedData);
+//        System.out.println("code:" + code);
+//        System.out.println("iv:" + iv);
+//        System.out.println("encryptedData:" + encryptedData);
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
         //发送get请求读取调用微信 https://api.weixin.qq.com/sns/jscode2session 接口获取openid用户唯一标识

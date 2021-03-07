@@ -7,7 +7,6 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.Date;
 
 @ConfigurationProperties(prefix = "config.jwt")
@@ -47,8 +46,8 @@ public class JWTUtil {
     public boolean isTokenExpired (Date expirationTime) {
         return expirationTime.before(new Date());
     }
-    private String secret;
-    private long expire;
+    private String secret="Crawler";
+    private long expire=10;
     private String header;
     // 省略 GET 和 SET
 }
