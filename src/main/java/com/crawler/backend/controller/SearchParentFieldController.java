@@ -22,7 +22,7 @@ import java.io.IOException;
 @AllArgsConstructor
 public class SearchParentFieldController {
     @GetMapping("/search-parent-field")
-    @ApiOperation("关键词搜索专业的相关信息")
+    @ApiOperation("关键词模糊搜索专业的相关信息")
     @ApiResponses(value =
         @ApiResponse(code = 200,message = "访问成功")
     )
