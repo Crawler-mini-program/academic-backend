@@ -23,7 +23,7 @@ public class TokenInterceptor implements HandlerInterceptor {
                              Object handler) throws Exception {
         // 地址过滤
         String uri = request.getRequestURI() ;
-        if (uri.contains("/getSessionKeyOropenid")){
+        if (uri.contains("/getSessionKeyOropenid")||uri.contains("/check-token")){
             return true ;
         }
         // Token 验证

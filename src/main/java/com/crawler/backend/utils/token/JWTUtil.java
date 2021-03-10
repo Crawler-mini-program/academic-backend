@@ -47,7 +47,7 @@ public class JWTUtil {
         return expirationTime.before(new Date());
     }
     private String secret="Crawler";
-    private long expire=10;
+    private long expire=7*24*3600;//一周
     private String header;
     // 省略 GET 和 SET
 }
