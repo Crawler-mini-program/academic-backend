@@ -32,11 +32,16 @@ public class TeacherList {
     @ApiOperation("关注老师")
     public JSONObject follow_teacher(HttpServletRequest request, String name, String school, long tid){
         String uid = request.getAttribute("openId").toString();
-        com.crawler.backend.model.TeacherList teacherList = new com.crawler.backend.model.TeacherList(name, school, uid, tid);
-        teacherListService.addTeacher(teacherList);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.accumulate("code", "0");
-        jsonObject.accumulate("msg", "关注成功");
+        if(teacherListService.checkTeacher(tid,uid)){
+            jsonObject.accumulate("code", "1");
+            jsonObject.accumulate("msg", "已关注该老师");
+        }else {
+            com.crawler.backend.model.TeacherList teacherList = new com.crawler.backend.model.TeacherList(name, school, uid, tid);
+            teacherListService.addTeacher(teacherList);
+            jsonObject.accumulate("code", "0");
+            jsonObject.accumulate("msg", "关注成功");
+        }
         return jsonObject;
     }
     @GetMapping("/defollow-teacher")
