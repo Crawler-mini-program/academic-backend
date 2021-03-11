@@ -38,6 +38,18 @@ public class TeacherListService extends ServiceImpl<TeacherListMapper, TeacherLi
     }
 
     /**
+     * 检查是否已经关注该老师
+     * @param tid
+     * @param uid
+     * @return
+     */
+    public boolean checkTeacher(long tid,String uid) {
+        QueryWrapper<TeacherList> queryWrapper = new QueryWrapper();
+        queryWrapper.eq("tid", tid);
+        queryWrapper.eq("uid", uid);
+        return getOne(queryWrapper)!=null;
+    }
+    /**
      * 返回老师关注列表
      * @param uid
      * @return
