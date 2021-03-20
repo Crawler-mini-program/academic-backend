@@ -85,8 +85,6 @@ public class LoginController {
                 return userService.getUserByIdToJson(openId,token);
             }
         }
-
-
         userService.saveOrUpdateUser(userInfoJSON);
         return userService.getUserByIdToJson(openId,token);
 

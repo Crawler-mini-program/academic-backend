@@ -28,7 +28,7 @@ class BackendApplicationTests {
     //测试用户添加
     @Test
     public void addUser(){
-        UserInfo userInfo = new UserInfo(null,"123","深圳",1,"wjl","广东","中国");
+        UserInfo userInfo = new UserInfo(null,"123","深圳",1,"wjl","广东","中国",0,null,0,null);
         System.out.println(adminService.addUser(userInfo));
     }
     @Test
