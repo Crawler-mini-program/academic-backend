@@ -47,7 +47,8 @@ public class SearchScholarByOrgController {
         String uid = request.getAttribute("openId").toString();
         UserInfo user= userService.getUserById(uid);
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpget = new HttpGet("http://47.92.240.36/academic/api/v2/scholars/suggest-scholar?num=" + page_size + "&page=" + page_no + "&orgId=" + user.getOrgid());
+        long orgId=user.getOrgid()==0?14344020024L:user.getOrgid();
+        HttpGet httpget = new HttpGet("http://47.92.240.36/academic/api/v2/scholars/suggest-scholar?num=" + page_size + "&page=" + page_no + "&orgId=" + orgId);
         CloseableHttpResponse response = httpclient.execute(httpget);
 
         HttpEntity entity = response.getEntity();

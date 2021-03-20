@@ -49,7 +49,8 @@ public class SearchScholarByFieldController {
         String uid = request.getAttribute("openId").toString();
         UserInfo user= userService.getUserById(uid);
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpget = new HttpGet("http://47.92.240.36/academic/api/v2/scholars/suggest-scholar?num=" + page_size + "&page=" + page_no + "&fieldId=" + user.getFieldid());
+        long fieldid=user.getFieldid()==0?41517072L:user.getFieldid();
+        HttpGet httpget = new HttpGet("http://47.92.240.36/academic/api/v2/scholars/suggest-scholar?num=" + page_size + "&page=" + page_no + "&fieldId=" + fieldid);
         CloseableHttpResponse response = httpclient.execute(httpget);
 
         HttpEntity entity = response.getEntity();
