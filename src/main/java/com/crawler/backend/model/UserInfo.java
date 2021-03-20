@@ -36,4 +36,21 @@ public class UserInfo {
      * 用户所在国家
      */
     private String country;
+    /**
+     * 用户感兴趣的领域id
+     */
+    private Integer fieldid;
+    /**
+     * 用户感兴趣的领域名
+     */
+    private String fieldname;
+    /**
+     * 用户所在的机构id
+     */
+    private Integer orgid;
+    /**
+     * 用户所在的机构名
+     */
+    private String orgname;
 }
+
