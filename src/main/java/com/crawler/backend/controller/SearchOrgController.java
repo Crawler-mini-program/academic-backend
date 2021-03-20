@@ -2,6 +2,8 @@ package com.crawler.backend.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONArray;
+
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -32,6 +34,15 @@ public class SearchOrgController {
 
         HttpEntity entity = response.getEntity();
         JSONObject jsonObject = JSON.parseObject(EntityUtils.toString(entity));
+        JSONArray arrays = (JSONArray)jsonObject.get("data");
+        JSONArray res = new JSONArray();
+        for(int i=0;i<arrays.size();i++){
+            if(((JSONObject)arrays.get(i)).get("name").toString().contains("大学")||
+                    ((JSONObject)arrays.get(i)).get("name").toString().contains("学院")){
+                res.add(arrays.get(i));
+            }
+        }
+        jsonObject.put("data",res);
         return jsonObject;
     }
 }

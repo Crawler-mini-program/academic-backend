@@ -3,6 +3,7 @@ package com.crawler.backend.Interceptor;
 import com.alibaba.fastjson.JSONObject;
 import com.crawler.backend.utils.token.JWTUtil;
 import io.jsonwebtoken.Claims;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
 @Component
-
+@Slf4j
 public class TokenInterceptor implements HandlerInterceptor {
     @Resource
     private JWTUtil jwtUtil ;
@@ -22,8 +23,9 @@ public class TokenInterceptor implements HandlerInterceptor {
                              HttpServletResponse response,
                              Object handler) throws Exception {
         // 地址过滤
-        String uri = request.getRequestURI() ;
-        if (uri.contains("/getSessionKeyOropenid")){
+        String url = request.getRequestURL().toString() ;
+        log.info(url);
+        if (url.contains("/getSessionKeyOropenid")||url.contains("/check-token")){
             return true ;
         }
         // Token 验证

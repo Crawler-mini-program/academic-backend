@@ -7,11 +7,13 @@ import com.crawler.backend.mappers.UserInfoMapper;
 import com.crawler.backend.model.UserInfo;
 import lombok.AllArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class UserService extends ServiceImpl<UserInfoMapper, UserInfo> {
     /**
@@ -31,6 +33,7 @@ public class UserService extends ServiceImpl<UserInfoMapper, UserInfo> {
      */
     public UserInfo getUserById(String openid) {
         QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
+        System.out.println(openid);
         wrapper.eq("id", openid);
         return getOne(wrapper);
     }
@@ -43,12 +46,23 @@ public class UserService extends ServiceImpl<UserInfoMapper, UserInfo> {
         String name=userInfoJSON.getString("nickName");
         int gender=Integer.parseInt(userInfoJSON.getString("gender"));
         String avatar=userInfoJSON.getString("avatarUrl");
-        boolean status = saveOrUpdate(new UserInfo(id,avatar,city,gender,name,province,country));
+        boolean status=false;
+        if(getUserById(id)==null)
+            status = saveOrUpdate(new UserInfo(id,avatar,city,gender,name,province,country,0,null,0,null));
+        else{
+            UserInfo user = getUserById(id);
+            int fieldid = user.getFieldid();
+            String fieldname = user.getFieldname();
+            int orgid = user.getOrgid();
+            String orgname = user.getOrgname();
+            status = saveOrUpdate(new UserInfo(id,avatar,city,gender,name,province,country,
+                    fieldid,fieldname,orgid,orgname));
+        }
         return status;
     }
 
     public JSONObject getUserByIdToJson(String openId,String token) {
-        QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
+        QueryWrapper<UserInfo> wrapper = new QueryWrapper<UserInfo>();
         wrapper.eq("id", openId);
         UserInfo user = getOne(wrapper);
         JSONObject res = new JSONObject();
@@ -60,6 +74,8 @@ public class UserService extends ServiceImpl<UserInfoMapper, UserInfo> {
         res.put("avatar",user.getAvatar());
         res.put("name",user.getName());
         res.put("token",token);
+        res.put("fieldName",user.getFieldname());
+        res.put("orgName",user.getOrgname());
         return res;
     }
 }
