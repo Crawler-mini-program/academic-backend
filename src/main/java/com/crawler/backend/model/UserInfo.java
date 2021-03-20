@@ -39,7 +39,7 @@ public class UserInfo {
     /**
      * 用户感兴趣的领域id
      */
-    private Integer fieldid;
+    private long fieldid;
     /**
      * 用户感兴趣的领域名
      */
@@ -47,7 +47,7 @@ public class UserInfo {
     /**
      * 用户所在的机构id
      */
-    private Integer orgid;
+    private long orgid;
     /**
      * 用户所在的机构名
      */

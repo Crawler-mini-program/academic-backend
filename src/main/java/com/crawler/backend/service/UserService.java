@@ -51,9 +51,9 @@ public class UserService extends ServiceImpl<UserInfoMapper, UserInfo> {
             status = saveOrUpdate(new UserInfo(id,avatar,city,gender,name,province,country,0,null,0,null));
         else{
             UserInfo user = getUserById(id);
-            int fieldid = user.getFieldid();
+            long fieldid = user.getFieldid();
             String fieldname = user.getFieldname();
-            int orgid = user.getOrgid();
+            long orgid = user.getOrgid();
             String orgname = user.getOrgname();
             status = saveOrUpdate(new UserInfo(id,avatar,city,gender,name,province,country,
                     fieldid,fieldname,orgid,orgname));
