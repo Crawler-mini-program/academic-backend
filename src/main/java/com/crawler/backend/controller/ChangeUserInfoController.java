@@ -1,20 +1,15 @@
 package com.crawler.backend.controller;
 
 
-import com.crawler.backend.model.TeacherList;
+import com.alibaba.fastjson.JSONObject;
 import com.crawler.backend.model.UserInfo;
 import com.crawler.backend.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import net.sf.json.JSONArray;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -23,9 +18,9 @@ public class ChangeUserInfoController {
     @GetMapping("/change-org")
     @ApiOperation("修改机构")
     public JSONObject change_org(HttpServletRequest request, long orgid, String orgname){
-        //String uid = request.getAttribute("openid").toString();
+        String uid = request.getAttribute("openid").toString();
         //测试用
-        String uid = "oVhiP5cyPkaR-Gc2FG7e76WCEdrI";
+//        String uid = "oVhiP5cyPkaR-Gc2FG7e76WCEdrI";
         UserInfo userInfo = userService.getUserById(uid);
         JSONObject res = new JSONObject();
         if(userInfo != null){
@@ -44,9 +39,9 @@ public class ChangeUserInfoController {
     @GetMapping("/change-field")
     @ApiOperation("修改感兴趣的领域")
     public JSONObject change_field(HttpServletRequest request, long fieldid, String fieldname){
-        //String uid = request.getAttribute("openid").toString();
+        String uid = request.getAttribute("openid").toString();
         //测试用
-        String uid = "oVhiP5cyPkaR-Gc2FG7e76WCEdrI";
+//        String uid = "oVhiP5cyPkaR-Gc2FG7e76WCEdrI";
         UserInfo userInfo = userService.getUserById(uid);
         JSONObject res = new JSONObject();
         if(userInfo != null){
@@ -65,8 +60,8 @@ public class ChangeUserInfoController {
     @GetMapping("/get-all-info")
     @ApiOperation("得到用户的所有信息")
     public JSONObject get_all_info(HttpServletRequest request){
-        //String uid = request.getAttribute("openid").toString();
-        String uid = "oVhiP5cyPkaR-Gc2FG7e76WCEdrI";
+        String uid = request.getAttribute("openid").toString();
+//        String uid = "oVhiP5cyPkaR-Gc2FG7e76WCEdrI";
         UserInfo user = userService.getUserById(uid);
         JSONObject res = new JSONObject();
         if(user != null){
