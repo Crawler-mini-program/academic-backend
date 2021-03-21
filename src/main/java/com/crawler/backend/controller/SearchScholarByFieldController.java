@@ -40,6 +40,7 @@ public class SearchScholarByFieldController {
         JSONObject jsonObject = JSON.parseObject(EntityUtils.toString(entity));
         return jsonObject;
     }
+
     @GetMapping("/user-search-scholar-by-field")
     @ApiOperation("根据用户所选领域得到教师列表")
     @ApiResponses(value =
