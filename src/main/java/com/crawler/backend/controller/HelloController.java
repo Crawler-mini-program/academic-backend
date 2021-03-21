@@ -27,13 +27,13 @@ public class HelloController {
     @ApiResponses(value =
         @ApiResponse(code = 200,message = "访问成功")
     )
-    public String index() throws IOException {
+    public JSONObject index() throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpget = new HttpGet("http://47.92.240.36/academic/api/v1/fields/super-course?pageSize=10&pageNo=0&content=计算机");
         CloseableHttpResponse response = httpclient.execute(httpget);
 
         HttpEntity entity = response.getEntity();
         JSONObject jsonObject = JSON.parseObject(EntityUtils.toString(entity));
-        return jsonObject.toJSONString();
+        return jsonObject;
     }
 }
