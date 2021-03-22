@@ -18,7 +18,7 @@ public class ChangeUserInfoController {
     @GetMapping("/change-org")
     @ApiOperation("修改机构")
     public JSONObject change_org(HttpServletRequest request, long orgid, String orgname){
-        String uid = request.getAttribute("openid").toString();
+        String uid = request.getAttribute("openId").toString();
         //测试用
 //        String uid = "oVhiP5cyPkaR-Gc2FG7e76WCEdrI";
         UserInfo userInfo = userService.getUserById(uid);
@@ -39,7 +39,7 @@ public class ChangeUserInfoController {
     @GetMapping("/change-field")
     @ApiOperation("修改感兴趣的领域")
     public JSONObject change_field(HttpServletRequest request, long fieldid, String fieldname){
-        String uid = request.getAttribute("openid").toString();
+        String uid = request.getAttribute("openId").toString();
         //测试用
 //        String uid = "oVhiP5cyPkaR-Gc2FG7e76WCEdrI";
         UserInfo userInfo = userService.getUserById(uid);
@@ -60,7 +60,7 @@ public class ChangeUserInfoController {
     @GetMapping("/get-all-info")
     @ApiOperation("得到用户的所有信息")
     public JSONObject get_all_info(HttpServletRequest request){
-        String uid = request.getAttribute("openid").toString();
+        String uid = request.getAttribute("openId").toString();
 //        String uid = "oVhiP5cyPkaR-Gc2FG7e76WCEdrI";
         UserInfo user = userService.getUserById(uid);
         JSONObject res = new JSONObject();
