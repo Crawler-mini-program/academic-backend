@@ -58,4 +58,36 @@ public class SearchScholarByFieldController {
         JSONObject jsonObject = JSON.parseObject(EntityUtils.toString(entity));
         return jsonObject;
     }
+
+    @GetMapping("/search-full-scholar")
+    @ApiOperation("获取老师完整信息（包括项目和论文数）")
+    @ApiResponses(value =
+    @ApiResponse(code = 200,message = "访问成功")
+    )
+    public JSONObject SearchFullScholar(String orgId , String scholarId) throws IOException{
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpGet httpget1 = new HttpGet("http://47.92.240.36/academic/api/v2/scholars/suggest-scholar?orgId="+orgId);
+        HttpGet httpget2 = new HttpGet("http://47.92.240.36/academic/api/v1/scholars/"+scholarId);
+        CloseableHttpResponse response = httpclient.execute(httpget1);
+        HttpEntity entity1 = response.getEntity();
+        response = httpclient.execute(httpget2);
+        HttpEntity entity2 = response.getEntity();
+        JSONObject jsonObject1 = JSON.parseObject(EntityUtils.toString(entity1));
+        JSONObject jsonObject2 = JSON.parseObject(EntityUtils.toString(entity2));
+        JSONArray arrays = (JSONArray)jsonObject1.get("data");
+        JSONObject data=null;
+        for(int i=0;i<arrays.size();i++){
+            if(((JSONObject)arrays.get(i)).get("scholarId").toString().contentEquals(scholarId)){
+                JSONObject tmp = (JSONObject)arrays.get(i);
+                data = (JSONObject)jsonObject2.get("data");
+                data.put("paperCount",tmp.get("paperCount"));
+                data.put("projectCount",tmp.get("projectCount"));
+                data.put("patentCount",tmp.get("patentCount"));
+                data.put("paperTitle",tmp.get("paperTitle"));
+                break;
+            }
+        }
+        jsonObject2.put("data",data);
+        return jsonObject2;
+    }
 }

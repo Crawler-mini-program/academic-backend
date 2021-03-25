@@ -20,7 +20,7 @@ public class JWTUtil {
     public String getToken (String identityId){
         Date nowDate = new Date();
         //过期时间
-        Date expireDate = new Date(nowDate.getTime() + expire * 1000);
+        Date expireDate = new Date(nowDate.getTime() + 7*24*3600 * 1000);
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setSubject(identityId)
